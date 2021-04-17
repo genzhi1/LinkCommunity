@@ -3,6 +3,8 @@ package com.yxf.linkcommunity.controller;
 import com.yxf.linkcommunity.dto.AccessTokenDto;
 import com.yxf.linkcommunity.dto.GithubUser;
 import com.yxf.linkcommunity.provider.GithubProvider;
+import com.yxf.mapper.UserMapper;
+import com.yxf.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
@@ -21,10 +24,15 @@ public class AuthorizeController {
 
     @Value("${github.client.id}")
     private String clientId;
+
     @Value("${github.client.secret}")
     private String clientSecret;
+
     @Value("${github.client.redirectUri}")
     private String redirectUri;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -36,9 +44,17 @@ public class AuthorizeController {
         accessTokenDto.setClient_secret(clientSecret);
         accessTokenDto.setRedirect_uri(redirectUri);
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
-        GithubUser user = githubProvider.getUser(accessToken);
-        if(user!=null) {
-            request.getSession().setAttribute("user",user);
+        GithubUser githubUser = githubProvider.getUser(accessToken);
+        if(githubUser!=null) {
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+
+            userMapper.insertUser(user);
+            request.getSession().setAttribute("githubUser",githubUser);
             return "redirect:/";
         }
         else
