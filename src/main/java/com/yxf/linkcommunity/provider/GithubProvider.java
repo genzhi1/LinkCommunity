@@ -16,14 +16,12 @@ public class GithubProvider {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDto));
         Request request = new Request.Builder()
-                .url("https://github.com/login/oauth/access_token?client_id=Iv1.233c470b3aa1382c&client_secret=912bf550f3c263258fcae02986983f116e22bdd1&code="+accessTokenDto.getCode()+"&redirect_uri=http://localhost:8080/callback&state=1")
+                .url("https://github.com/login/oauth/access_token?")
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string= response.body().string();
-            System.out.println("accessToken"+string);
             String split=string.split("&")[0].split("=")[1];
-            System.out.println(split);
             return split;
         } catch (IOException e) {
             e.printStackTrace();
