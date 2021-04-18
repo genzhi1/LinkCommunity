@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en", xmlns:th="http://www.thymeleaf.org">
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LinkCommunity</title>
@@ -10,82 +10,89 @@
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 
 
-
-
-
 </head>
-<body >
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Brand</a>
-            </div>
-
-
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索队伍">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" th:if="${session.githubUser!=null}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.githubUser.getName()}">ee<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="www.baidu.com">个人资料</a></li>
-                            <li><a href="#">评论</a></li>
-                            <li><a href="#">退出登录</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">ff</a></li>
-                        </ul>
-                    </li>
-                    <li th:if="${session.githubUser == null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=Iv1.233c470b3aa1382c&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
-                    </li>
-                </ul>
-
-            </div>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
 
-    </nav>
 
-    <div class="container-fluid main" >
-        <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
-                <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
-                <hr>
-                <form action="">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="title">标题</span>
-                        <input type="text" class="form-control" placeholder="标题" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="form-group">
-                        <label for="title">问题补充</label>
-                        <textarea name="description" id="description" class="form-control" cols="30"
-                                  rows="10" placeholder="正文"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="title">添加标签：</label>
-                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以逗号分隔">
-                    </div>
-                    <button type="submit" class="btn btn-success btn-publish" >发布</button>
-                </form>
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="搜索队伍">
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">
-                <h3>注意事项</h3>
-                第一，绝不意气用事<br>
-                第二，绝不漏判任何一件坏事<br>
-                第三，绝对裁判的公正漂亮<br>
-            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown" th:if="${session.githubUser!=null}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false" th:text="${session.githubUser.getName()}">ee<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="www.baidu.com">个人资料</a></li>
+                    <li><a href="#">评论</a></li>
+                    <li><a href="#">退出登录</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">ff</a></li>
+                </ul>
+            </li>
+            <li th:if="${session.githubUser == null}">
+                <a href="https://github.com/login/oauth/authorize?client_id=Iv1.233c470b3aa1382c&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+            </li>
+        </ul>
+
+    </div>
+    </div>
+
+</nav>
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+            <hr>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">标题</label>
+                    <input type="text" id="title" th:value="${title}" name="title" class="title"
+                           placeholder="你的标题">
+                </div>
+                <div class="form-group">
+                    <label for="description">问题补充</label>
+                    <textarea name="description" id="description"
+                              class="form-control" cols="30"
+                              rows="10" th:text="${description}"
+                              placeholder="正文"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="tag">添加标签：</label>
+                    <input type="text" class="form-control" id="tag"
+                           th:value="${tag}" name="tag" placeholder="输入标签，以逗号分隔">
+                </div>
+                <div th:if="${error} ne null">
+                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+                </div>
+                <button type="submit" class="btn btn-success btn-publish">发布</button>
+
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">
+            <h3>注意事项</h3>
+            第一，绝不意气用事<br>
+            第二，绝不漏判任何一件坏事<br>
+            第三，绝对裁判的公正漂亮<br>
         </div>
     </div>
+</div>
 
 </body>
 </html>
