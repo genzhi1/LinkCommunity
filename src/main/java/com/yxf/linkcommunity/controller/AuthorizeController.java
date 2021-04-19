@@ -3,15 +3,13 @@ package com.yxf.linkcommunity.controller;
 import com.yxf.linkcommunity.dto.AccessTokenDto;
 import com.yxf.linkcommunity.dto.GithubUser;
 import com.yxf.linkcommunity.provider.GithubProvider;
-import com.yxf.mapper.UserMapper;
-import com.yxf.model.User;
+import com.yxf.linkcommunity.mapper.UserMapper;
+import com.yxf.linkcommunity.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +53,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
 
             userMapper.insertUser(user);
             Cookie cookie = new Cookie("token",user.getToken());

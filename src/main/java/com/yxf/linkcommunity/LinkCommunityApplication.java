@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.yxf.mapper")
+@MapperScan("com.yxf.linkcommunity.mapper")
 public class LinkCommunityApplication {
 
     public static void main(String[] args) {

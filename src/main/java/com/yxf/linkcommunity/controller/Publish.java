@@ -1,9 +1,9 @@
 package com.yxf.linkcommunity.controller;
 
-import com.yxf.mapper.QuestionMapper;
-import com.yxf.mapper.UserMapper;
-import com.yxf.model.Question;
-import com.yxf.model.User;
+import com.yxf.linkcommunity.mapper.QuestionMapper;
+import com.yxf.linkcommunity.mapper.UserMapper;
+import com.yxf.linkcommunity.model.Question;
+import com.yxf.linkcommunity.model.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,11 +82,8 @@ public class Publish {
         question.setTag(tag);
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
-        question.setCreator(user.getName());
+        question.setCreator(user.getId());
 
-        model.addAttribute("tag",tag);
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
 
         questionMapper.create(question);
         return "redirect:/";
