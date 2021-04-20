@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Component
 public class GithubProvider {
-    public String getAccessToken(AccessTokenDto accessTokenDto){
+    public String getAccessToken(AccessTokenDto accessTokenDto) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 //        https://github.com/login/oauth/access_token?client_id=Iv1.233c470b3aa1382c&client_secret=e7b378f79f16ac9639076dae231a81bd4947e89e&code="+accessTokenDto.getCode()+"&redirect_uri=http://localhost:8080/callback&state=1"
         OkHttpClient client = new OkHttpClient();
@@ -20,8 +20,8 @@ public class GithubProvider {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String string= response.body().string();
-            String split=string.split("&")[0].split("=")[1];
+            String string = response.body().string();
+            String split = string.split("&")[0].split("=")[1];
             return split;
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,16 +29,16 @@ public class GithubProvider {
         return null;
     }
 
-    public GithubUser getUser(String accessToken){
+    public GithubUser getUser(String accessToken) {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
-                .header("Authorization","token "+accessToken)
+                .header("Authorization", "token " + accessToken)
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String string=response.body().string();
+            String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return githubUser;
         } catch (IOException e) {

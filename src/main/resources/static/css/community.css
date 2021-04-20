@@ -7,8 +7,8 @@ body{
 }
 
 .media-object{
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
 }
 
 .btn-publish{
@@ -20,4 +20,8 @@ body{
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+
+.profile .margin{
+    margin:15px
 }

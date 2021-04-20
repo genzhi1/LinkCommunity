@@ -10,7 +10,7 @@ public class QuestionDto {
     private String description;
     private Long gmtCreate;
     private Long gmtModified;
-    private String creator;
+    private Integer creator;
     private Integer viewCount;
     private Integer likeCount;
     private String tag;

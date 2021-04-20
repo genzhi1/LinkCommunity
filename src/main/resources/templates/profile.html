@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" , xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LinkCommunity</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/community.css"/>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/community.css"/>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 
 
 </head>
 <body>
 <div th:insert="~{navigation :: navigation}"></div>
 
-<div class="container-fluid main">
+<div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
-            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>我的问题</h2>
             <hr>
             <div class="media" th:each="question : ${questions.questionDtoList}">
                 <div class="media-left media-middle">
@@ -33,8 +33,6 @@
                         <span th:text="${question.likeCount}"></span>个喜欢</span>
                     <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}" }></span>
                 </div>
-
-
             </div>
             <nav aria-label="...">
                 <ul class="pagination">
@@ -51,10 +49,11 @@
 
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">
-            <h3>注意事项</h3>
-            第一，绝不意气用事<br>
-            第二，绝不漏判任何一件坏事<br>
-            第三，绝对裁判的公正漂亮<br>
+            <div class="list-group margin">
+                <a href="/profile/question" th:class=" ${section=='questions'}? 'active list-group-item ':'list-group-item'" >我的问题</a>
+                <a href="/profile/replies" th:class="${section=='replies'}? 'active list-group-item ':'list-group-item'">最新回复</a>
+            </div>
+
         </div>
     </div>
 </div>

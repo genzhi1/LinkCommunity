@@ -1,5 +1,6 @@
 package com.yxf.linkcommunity.service;
 
+import com.yxf.linkcommunity.dto.PagenationDto;
 import com.yxf.linkcommunity.dto.QuestionDto;
 import com.yxf.linkcommunity.mapper.QuestionMapper;
 import com.yxf.linkcommunity.mapper.UserMapper;
@@ -21,10 +22,12 @@ public class QuestionService {
     @Autowired(required = false)
     private UserMapper userMapper;
 
-
-    public List<QuestionDto> list() {
-        List<Question> questionList=questionMapper.list();
+    public  PagenationDto findQuestionByUser(Integer id, Integer page, Integer size) {
+        Integer offset=(page-1)*size;
+        List<Question> questionList=questionMapper.listById(id,offset,size);
         List<QuestionDto> questionDtoList=new LinkedList<>();
+
+        PagenationDto pagenationDto = new PagenationDto();
         for(Question question:questionList)
         {
             User user=userMapper.findById(question.getCreator());
@@ -33,6 +36,35 @@ public class QuestionService {
             questionDto.setUser(user);
             questionDtoList.add(questionDto);
         }
-        return questionDtoList;
+
+        pagenationDto.setQuestionDtoList(questionDtoList);
+        Integer totalCount=questionMapper.getCount();
+        pagenationDto.pageNation(totalCount,page,size);
+        return pagenationDto;
+
     }
+
+
+    public PagenationDto list(Integer page,Integer size) {
+        Integer offset=(page-1)*size;
+        List<Question> questionList=questionMapper.list(offset,size);
+        List<QuestionDto> questionDtoList=new LinkedList<>();
+
+        PagenationDto pagenationDto = new PagenationDto();
+        for(Question question:questionList)
+        {
+            User user=userMapper.findById(question.getCreator());
+            QuestionDto questionDto = new QuestionDto();
+            BeanUtils.copyProperties(question,questionDto);
+            questionDto.setUser(user);
+            questionDtoList.add(questionDto);
+        }
+
+        pagenationDto.setQuestionDtoList(questionDtoList);
+        Integer totalCount=questionMapper.getCount();
+        pagenationDto.pageNation(totalCount,page,size);
+        return pagenationDto;
+    }
+
+
 }
