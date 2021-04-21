@@ -15,6 +15,7 @@ public class PagenationDto {
     private boolean showFirst;
     private boolean showLast;
     private Integer totalPage;
+    private Integer totalCount=0;
 
     private Integer page;
     private List<Integer> pagesOnShowing=new ArrayList<>();

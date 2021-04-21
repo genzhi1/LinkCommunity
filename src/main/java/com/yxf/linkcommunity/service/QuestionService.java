@@ -22,9 +22,9 @@ public class QuestionService {
     @Autowired(required = false)
     private UserMapper userMapper;
 
-    public  PagenationDto findQuestionByUser(Integer id, Integer page, Integer size) {
+    public  PagenationDto findQuestionByUser(Integer creator, Integer page, Integer size) {
         Integer offset=(page-1)*size;
-        List<Question> questionList=questionMapper.listById(id,offset,size);
+        List<Question> questionList=questionMapper.listById(creator,offset,size);
         List<QuestionDto> questionDtoList=new LinkedList<>();
 
         PagenationDto pagenationDto = new PagenationDto();
@@ -38,7 +38,8 @@ public class QuestionService {
         }
 
         pagenationDto.setQuestionDtoList(questionDtoList);
-        Integer totalCount=questionMapper.getCount();
+        Integer totalCount=questionMapper.getCountByCreator(creator);
+        pagenationDto.setTotalCount(totalCount);
         pagenationDto.pageNation(totalCount,page,size);
         return pagenationDto;
 
@@ -62,6 +63,7 @@ public class QuestionService {
 
         pagenationDto.setQuestionDtoList(questionDtoList);
         Integer totalCount=questionMapper.getCount();
+        pagenationDto.setTotalCount(totalCount);
         pagenationDto.pageNation(totalCount,page,size);
         return pagenationDto;
     }

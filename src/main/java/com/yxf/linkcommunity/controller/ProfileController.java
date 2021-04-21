@@ -29,7 +29,7 @@ public class ProfileController {
     @GetMapping("/profile/{action}")
     public String profile(HttpServletRequest request,
                           @PathVariable(name = "action") String action,
-                          @RequestParam(value = "page", defaultValue = "1") Integer page,
+                          @RequestParam(value = "page", defaultValue = "2") Integer page,
                           @RequestParam(value = "size", defaultValue = "5") Integer size,
                           Model model) {
         User user=null;
@@ -40,10 +40,11 @@ public class ProfileController {
                 user = userMapper.findByToken(token);
                 if (user != null) {
                     request.getSession().setAttribute("githubUser", user);
+                    break;
                 }else{
                     return "redirect:/";
                 }
-                break;
+
             }
         }
 

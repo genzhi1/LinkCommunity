@@ -39,7 +39,7 @@
                     <li th:if="${questions.showFirst}" class="previous"><a href="/?page=1"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                     <li th:if="${questions.showPrevious}" class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&lt;</span></a></li>
                     <li th:each="page:${questions.pagesOnShowing}" th:class="${page == questions.page}? 'active':''">
-                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
+                        <a th:href="@{/profile/questions/(page=${page})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${questions.showNext}"class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
                     <li th:if="${questions.showLast}"class="next"><a th:href="@{/(page=questions.totalpage)}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
@@ -50,8 +50,8 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">
             <div class="list-group margin">
-                <a href="/profile/question" th:class=" ${section=='questions'}? 'active list-group-item ':'list-group-item'" >我的问题</a>
-                <a href="/profile/replies" th:class="${section=='replies'}? 'active list-group-item ':'list-group-item'">最新回复</a>
+                <a href="/profile/question" th:class=" ${section=='questions'}? 'active list-group-item ':'list-group-item'" >我的问题<span class="badge" th:text="${questions.totalCount}"></span></a>
+                <a href="/profile/replies" th:class="${section=='replies'}? 'active list-group-item ':'list-group-item'">最新回复<span class="badge">42</span></a>
             </div>
 
         </div>
