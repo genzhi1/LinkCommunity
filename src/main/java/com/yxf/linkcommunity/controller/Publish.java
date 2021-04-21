@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -55,21 +54,7 @@ public class Publish {
         }
 
 
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        for(Cookie target:cookies)
-        {
-            if(target.getName().equals("token"))
-            {
-                String token=target.getValue();
-                user=userMapper.findByToken(token);
-                if(user!=null)
-                {
-                    request.getSession().setAttribute("githubUser",user);
-                }
-                break;
-            }
-        }
+        User user= (User) request.getSession().getAttribute("githubUser");
         if(user==null)
         {
             model.addAttribute("error","用户未登录");

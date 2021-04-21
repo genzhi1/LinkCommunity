@@ -31,7 +31,7 @@ public class AuthorizeController {
     @Value("${github.client.redirectUri}")
     private String redirectUri;
 
-    @Autowired
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     @GetMapping("/callback")
@@ -55,7 +55,7 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
 
-            userMapper.insertUser(user);
+            userMapper.insertSelective(user);
             Cookie cookie = new Cookie("token",user.getToken());
             response.addCookie(cookie);
             //request.getSession().setAttribute("githubUser",githubUser);

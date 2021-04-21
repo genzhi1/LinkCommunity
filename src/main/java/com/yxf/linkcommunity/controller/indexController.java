@@ -33,24 +33,14 @@ public class indexController {
                                   Model model,
                                   @RequestParam(value = "page", defaultValue = "1") Integer page,
                                   @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie target : cookies) {
-            if (target.getName().equals("token")) {
-                String token = target.getValue();
-                User user = userMapper.findByToken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("githubUser", user);
-                }
-                break;
-            }
-        }
 
 
 
 
-        PagenationDto pagenationDto = questionService.list(page,size);
 
-        model.addAttribute("questions", pagenationDto);
+        //PagenationDto pagenationDto = questionService.list(page,size);
+
+        //model.addAttribute("questions", pagenationDto);
 
 
         return "index";
