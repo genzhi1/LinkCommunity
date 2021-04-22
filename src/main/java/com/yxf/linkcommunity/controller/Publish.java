@@ -70,7 +70,7 @@ public class Publish {
         question.setCreator(user.getId());
 
 
-        questionMapper.create(question);
+        questionMapper.insert(question);
         return "redirect:/";
 
     }

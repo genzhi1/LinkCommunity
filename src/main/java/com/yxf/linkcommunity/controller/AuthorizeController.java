@@ -5,6 +5,7 @@ import com.yxf.linkcommunity.dto.GithubUser;
 import com.yxf.linkcommunity.provider.GithubProvider;
 import com.yxf.linkcommunity.mapper.UserMapper;
 import com.yxf.linkcommunity.model.User;
+import com.yxf.linkcommunity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,11 @@ public class AuthorizeController {
     @Autowired(required = false)
     private UserMapper userMapper;
 
+
+    @Autowired
+    private UserService userService;
+
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -46,6 +52,9 @@ public class AuthorizeController {
         accessTokenDto.setRedirect_uri(redirectUri);
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
         GithubUser githubUser = githubProvider.getUser(accessToken);
+
+
+
         if(githubUser!=null) {
             User user = new User();
             user.setToken(UUID.randomUUID().toString());
@@ -55,7 +64,7 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
 
-            userMapper.insertSelective(user);
+            userService.createOrUpdate(user);
             Cookie cookie = new Cookie("token",user.getToken());
             response.addCookie(cookie);
             //request.getSession().setAttribute("githubUser",githubUser);

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QuestionDetail</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/community.css"/>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+
+</head>
+<body>
+<div th:insert="~{navigation :: navigation}"></div>
+
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
+            <h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>问题详情</h4>
+            <h6><span class="glyphicon glyphicon-pencil" aria-hidden="true" th:if="${questionWithUser.creator==session.githubUser.id}">编辑问题</span></h6>
+            <hr>
+            <div class="media">
+                <div class="media-body">
+                    <h2 class="media-heading" th:text="${questionWithUser.title}"></h2>
+                    <span class="text-desc"><span th:text="${questionWithUser.viewCount}"></span>次浏览
+                        <span th:text="${questionWithUser.likeCount}"></span>个喜欢</span>
+                    <span  class="text-desc" th:text="${#dates.format(questionWithUser.gmtCreate,'yyyy-MM-dd HH:mm')}" }></span><br>
+                    <hr>
+                    <span class="text-center" th:text="${questionWithUser.description}"></span><br>
+                    <hr>
+                    <span class="text-success" th:text="${questionWithUser.tag}"></span>
+
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12 profile">
+            <div class="media margin">
+            <div class="media-left">
+                <a href="#">
+                    <img class=" media-object   img-rounded" th:src="${questionWithUser.user.avatarUrl}" alt="试试看"> </a></div>
+
+            <div class="media-middle "> <span th:text="${questionWithUser.user.name}"></span></div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

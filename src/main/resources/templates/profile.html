@@ -22,7 +22,7 @@
             <hr>
             <div class="media" th:each="question : ${questions.questionDtoList}">
                 <div class="media-left media-middle">
-                    <a href="#">
+                    <a th:href="@{'http://localhost:8080/question/'+${question.id}}">
                         <img class="media-object   img-rounded" th:src="${question.user.avatarUrl}" alt="试试看">
                     </a>
                 </div>
@@ -36,13 +36,13 @@
             </div>
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li th:if="${questions.showFirst}" class="previous"><a href="/?page=1"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    <li th:if="${questions.showPrevious}" class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&lt;</span></a></li>
+                    <li th:if="${questions.showFirst}" class="previous"><a th:href="@{'http://localhost:8080/profile/questions?page=1'+(page=1)}"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li th:if="${questions.showPrevious}" class="next"><a th:href="@{'http://localhost:8080/profile/questions/'(page=${questions.page}-1)}" aria-label="Next"><span aria-hidden="true">&lt;</span></a></li>
                     <li th:each="page:${questions.pagesOnShowing}" th:class="${page == questions.page}? 'active':''">
                         <a th:href="@{/profile/questions/(page=${page})}" th:text="${page}"></a>
                     </li>
-                    <li th:if="${questions.showNext}"class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
-                    <li th:if="${questions.showLast}"class="next"><a th:href="@{/(page=questions.totalpage)}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    <li th:if="${questions.showNext}"class="next"><a th:href="@{'http://localhost:8080/profile/questions/'(page=${questions.page}-1)}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
+                    <li th:if="${questions.showLast}"class="next"><a th:href="@{'http://localhost:8080/profile/questions/'+(page=${questions.totalPage})}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 
                 </ul>
             </nav>

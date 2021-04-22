@@ -15,49 +15,49 @@
 <body>
 <div th:insert="~{navigation :: navigation}"></div>
 
-<!--<div class="container-fluid main">-->
-<!--    <div class="row">-->
-<!--        <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">-->
-<!--            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>-->
-<!--            <hr>-->
-<!--            <div class="media" th:each="question : ${questions.questionDtoList}">-->
-<!--                <div class="media-left media-middle">-->
-<!--                    <a href="#">-->
-<!--                        <img class="media-object   img-rounded" th:src="${question.user.avatarUrl}" alt="试试看">-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--                <div class="media-body">-->
-<!--                    <h4 class="media-heading" th:text="${question.title}"></h4>-->
-<!--                    <span th:text="${question.description}"></span>-->
-<!--                    <span class="text-desc"><span th:text="${question.viewCount}"></span>次浏览-->
-<!--                        <span th:text="${question.likeCount}"></span>个喜欢</span>-->
-<!--                    <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}" }></span>-->
-<!--                </div>-->
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
+            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <hr>
+            <div class="media" th:each="question : ${questions.questionDtoList}">
+                <div class="media-left media-middle"  >
+                    <a th:href="@{'http://localhost:8080/question/'+${question.id}}">
+                        <img class="media-object   img-rounded" th:src="${question.user.avatarUrl}" alt="试试看">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span th:text="${question.description}"></span>
+                    <span class="text-desc"><span th:text="${question.viewCount}"></span>次浏览
+                        <span th:text="${question.likeCount}"></span>个喜欢</span>
+                    <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}" }></span>
+                </div>
 
 
-<!--            </div>-->
-<!--            <nav aria-label="...">-->
-<!--                <ul class="pagination">-->
-<!--                    <li th:if="${questions.showFirst}" class="previous"><a href="/?page=1"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>-->
-<!--                    <li th:if="${questions.showPrevious}" class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&lt;</span></a></li>-->
-<!--                    <li th:each="page:${questions.pagesOnShowing}" th:class="${page == questions.page}? 'active':''">-->
-<!--                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>-->
-<!--                    </li>-->
-<!--                    <li th:if="${questions.showNext}"class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>-->
-<!--                    <li th:if="${questions.showLast}"class="next"><a th:href="@{/(page=questions.totalpage)}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>-->
+            </div>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${questions.showFirst}" class="previous"><a href="/?page=1"  aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li th:if="${questions.showPrevious}" class="next"><a th:href="@{/(page=${questions.page - 1})}" aria-label="Next"><span aria-hidden="true">&lt;</span></a></li>
+                    <li th:each="page:${questions.pagesOnShowing}" th:class="${page == questions.page}? 'active':''">
+                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${questions.showNext}"class="next"><a th:href="@{/(page=${questions.page + 1})}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
+                    <li th:if="${questions.showLast}"class="next"><a th:href="@{/(page=${questions.totalPage})}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 
-<!--                </ul>-->
-<!--            </nav>-->
+                </ul>
+            </nav>
 
-<!--        </div>-->
-<!--        <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">-->
-<!--            <h3>注意事项</h3>-->
-<!--            第一，绝不意气用事<br>-->
-<!--            第二，绝不漏判任何一件坏事<br>-->
-<!--            第三，绝对裁判的公正漂亮<br>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 co-xs-12">
+            <h3>注意事项</h3>
+            第一，绝不意气用事<br>
+            第二，绝不漏判任何一件坏事<br>
+            第三，绝对裁判的公正漂亮<br>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
