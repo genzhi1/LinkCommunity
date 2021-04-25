@@ -22,7 +22,9 @@ public class QuestionController {
     public String question(@PathVariable("id") Integer id,
                            Model model){
 
-        QuestionDto userByQuestion = questionService.getUserByQuestion(id);
+        QuestionDto userByQuestion = questionService.getUserByQuestionId(id);
+        questionService.IncViewCount(id);
+        model.addAttribute("id",id);
         model.addAttribute("questionWithUser",userByQuestion);
         return "question";
 

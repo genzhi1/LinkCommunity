@@ -19,8 +19,11 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 co-xs-12">
             <h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>问题详情</h4>
-            <h6><span class="glyphicon glyphicon-pencil" aria-hidden="true" th:if="${questionWithUser.creator==session.githubUser.id}">编辑问题</span></h6>
-            <hr>
+            <a th:href="@{'http://localhost:8080/publish/'+${questionWithUser.id}}" >
+            <h6><span class="glyphicon glyphicon-pencil" aria-hidden="true" th:if="${questionWithUser.creator==session.githubUser.id}"
+                      >编辑问题</span></h6>
+            </a>
+                <hr>
             <div class="media">
                 <div class="media-body">
                     <h2 class="media-heading" th:text="${questionWithUser.title}"></h2>

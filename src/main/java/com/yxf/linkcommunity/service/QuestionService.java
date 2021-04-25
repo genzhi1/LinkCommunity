@@ -2,6 +2,9 @@ package com.yxf.linkcommunity.service;
 
 import com.yxf.linkcommunity.dto.PagenationDto;
 import com.yxf.linkcommunity.dto.QuestionDto;
+import com.yxf.linkcommunity.exception.CustmizeException;
+import com.yxf.linkcommunity.exception.CustomizeErrorCode;
+import com.yxf.linkcommunity.mapper.QuestionExtMapper;
 import com.yxf.linkcommunity.mapper.QuestionMapper;
 import com.yxf.linkcommunity.mapper.UserMapper;
 import com.yxf.linkcommunity.model.Question;
@@ -23,6 +26,9 @@ public class QuestionService {
 
     @Autowired(required = false)
     private UserMapper userMapper;
+
+    @Autowired(required = false)
+    private QuestionExtMapper questionExtMapper;
 
     public PagenationDto findQuestionByUser(Integer creator, Integer page, Integer size) {
         Integer offset=(page-1)*size;
@@ -83,16 +89,41 @@ public class QuestionService {
     }
 
 
-    public QuestionDto getUserByQuestion(Integer id) {
+    public QuestionDto getUserByQuestionId(Integer id) {
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
                 .andIdEqualTo(id);
         List<Question> questionList=questionMapper.selectByExample(questionExample);
+        if(questionList.size()==0)
+            throw new CustmizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         Question question=questionList.get(0);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question,questionDto);
         questionDto.setUser(user);
         return questionDto;
+    }
+
+    public void createOrUpdateQuestion(Question question) {
+        if(question.getId()==null){
+            //create
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insertSelective(question);
+        }
+        else{
+            question.setGmtModified(System.currentTimeMillis());
+            int update=questionMapper.updateByPrimaryKeySelective(question);
+            if(update==0){
+                throw new CustmizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+        }
+    }
+
+    public void IncViewCount(Integer id) {
+        Question updateQuestion=new Question();
+        updateQuestion.setId(id);
+        updateQuestion.setViewCount(1);
+        questionExtMapper.incViewCount(updateQuestion);
     }
 }
