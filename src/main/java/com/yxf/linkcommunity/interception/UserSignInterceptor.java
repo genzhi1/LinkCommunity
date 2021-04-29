@@ -32,13 +32,14 @@ public class UserSignInterceptor implements HandlerInterceptor {
                     return true;
                 }
                 else{
-                    request.getRequestDispatcher("http://localhost:8080").forward(request,response);
+                   // request.getRequestDispatcher("http://localhost:8080").forward(request,response);
                     return true;
                 }
                 }
 
             }
-        response.sendRedirect("http://localhost:8080");
+        //request.getRequestDispatcher("http://localhost:8080").forward(request,response);
+        //response.sendRedirect("http://localhost:8080");
         return true;
     }
 }

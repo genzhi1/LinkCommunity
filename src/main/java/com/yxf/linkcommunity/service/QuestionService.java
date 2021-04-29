@@ -4,6 +4,7 @@ import com.yxf.linkcommunity.dto.PagenationDto;
 import com.yxf.linkcommunity.dto.QuestionDto;
 import com.yxf.linkcommunity.exception.CustmizeException;
 import com.yxf.linkcommunity.exception.CustomizeErrorCode;
+import com.yxf.linkcommunity.mapper.CommentMapper;
 import com.yxf.linkcommunity.mapper.QuestionExtMapper;
 import com.yxf.linkcommunity.mapper.QuestionMapper;
 import com.yxf.linkcommunity.mapper.UserMapper;
@@ -126,4 +127,6 @@ public class QuestionService {
         updateQuestion.setViewCount(1);
         questionExtMapper.incViewCount(updateQuestion);
     }
+
+
 }

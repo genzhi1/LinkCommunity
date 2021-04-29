@@ -24,4 +24,10 @@
     view_count=view_count + #{viewCount,jdbcType=INTEGER}
     WHERE id=#{id}
   </update>
+  <update id="incCommentCount" parameterType="com.yxf.linkcommunity.model.Question">
+    update question
+    set
+      like_count=like_count + #{likeCount,jdbcType=INTEGER}
+    WHERE id=#{id}
+  </update>
 </mapper>

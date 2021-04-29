@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class CommentDto {
-    private Long id;
-    private Long parentId;
+    private Integer id;
+    private Integer parentId;
     private Integer type;
-    private Long commentor;
+    private Integer commentor;
     private Long gmtCreate;
     private Long gmtModified;
-    private Long likeCount;
+    private Integer likeCount;
     private String content;
 }
