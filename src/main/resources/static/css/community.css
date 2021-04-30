@@ -25,3 +25,16 @@ body{
 .profile .margin{
     margin:15px
 }
+.menu{
+    color: #999;
+    font-size: 13px;
+}
+.menu .icon{
+    cursor: pointer;
+}
+
+.menu .icon:hover{
+    color:#5bc0de;
+}
+
+

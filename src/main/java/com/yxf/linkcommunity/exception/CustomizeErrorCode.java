@@ -8,7 +8,8 @@ public enum CustomizeErrorCode implements MeCustomizeErrorCode{
     TYPE_NOT_MATCH(1025,"评论对象类型有误"),
     PARENT_COMMENT_NOT_EXSIT(1026,"该评论不存在"),
     PARENT_QUESTION_NOT_EXSIT(1027,"该问题不存在"),
-    SYSTEM_ERROR(1028,"服务器错误");
+    SYSTEM_ERROR(1028,"服务器错误"),
+    CONTENT_IS_NULL(1029,"评论不能为空");
 
     private String message;
     private Integer code;

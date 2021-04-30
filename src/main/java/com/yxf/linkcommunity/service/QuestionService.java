@@ -94,6 +94,7 @@ public class QuestionService {
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
                 .andIdEqualTo(id);
+
         List<Question> questionList=questionMapper.selectByExample(questionExample);
         if(questionList.size()==0)
             throw new CustmizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);

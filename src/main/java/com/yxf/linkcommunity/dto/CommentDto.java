@@ -1,5 +1,6 @@
 package com.yxf.linkcommunity.dto;
 
+import com.yxf.linkcommunity.model.User;
 import lombok.Data;
 
 @Data
@@ -12,4 +13,5 @@ public class CommentDto {
     private Long gmtModified;
     private Integer likeCount;
     private String content;
+    private User user;
 }

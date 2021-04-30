@@ -1,5 +1,6 @@
 package com.yxf.linkcommunity.controller;
 
+import com.yxf.linkcommunity.dto.CommentDto;
 import com.yxf.linkcommunity.dto.QuestionDto;
 import com.yxf.linkcommunity.service.CommentService;
 import com.yxf.linkcommunity.service.QuestionService;
@@ -30,9 +31,10 @@ public class QuestionController {
 
         QuestionDto userByQuestion = questionService.getUserByQuestionId(id);
         questionService.IncViewCount(id);
-        List<QuestionDto> questionDtoList= commentService.getCommentByQuestionId(id);
+        List<CommentDto> commentDtoList= commentService.getCommentByQuestionId(id);
         model.addAttribute("id",id);
         model.addAttribute("questionWithUser",userByQuestion);
+        model.addAttribute("comments",commentDtoList);
         return "question";
 
 
